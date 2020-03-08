@@ -25,11 +25,12 @@ class App(QtWidgets.QMainWindow, window.Ui_Window):
 
     
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     qt_app = QtWidgets.QApplication()
     app = App()
     app.show()
     qt_app.exec_() 
+    #test
 
 
 
