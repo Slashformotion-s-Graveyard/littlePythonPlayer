@@ -11,13 +11,10 @@ class Player():
         self.index = 2
         self.sound = None
         self.paused = True
-        self.initialise()
-        
+        self._initialise()
     
-    def initialise(self):
-        self._load()
-
-        
+    ## "public" methods
+    
     def next_track(self):
         print("next")
         self.index +=1
@@ -29,17 +26,22 @@ class Player():
         self.index += -1
         self._load()
         self._play()
-
-
-    def _load(self):
-        track = self.library.get_track_number(self.index)
-        self.sound = pm.Sound(track.get_abs_path())
         
     def launch(self):
         self._play()
         self.paused = False
 
+    def pause_resume(self):
+        if self.paused:
+            self._unpause()
+        else:
+            self._pause()
 
+    ## "private" methods
+    
+    def _load(self):
+        track = self.library.get_track_number(self.index)
+        self.sound = pm.Sound(track.get_abs_path())
 
     def _get_state(self):
         return pm.get_busy() # NOTE: return bool
@@ -49,35 +51,28 @@ class Player():
             self.sound.play()
             
         else:
-            self.stop()
+            self._stop()
             self.sound.play()
             
-    def pause_resume(self):
-        if self.paused:
-            self.unpause()
-        else:
-            self.pause()
-
-
-    def boucle(self):
-        if not self._get_state():
-            self.next_track()
-
-    def pause(self):
+    def _pause(self):
         pm.pause()
         self.paused = True
 
-    def unpause(self):
+    def _unpause(self):
         pm.unpause()
         self.paused = False
     
     
-    def stop(self):
+    def _stop(self):
         pm.stop()
+
+    def _initialise(self):
+        self._load()
 
     
 
 if __name__ == "__main__":
+    #test
     import pathlib
     path = pathlib.Path("/home/slash/Documents/Programmation/littlePythonPlayer/music") # DEBUG: not for prod
     library = Library.Library(path)

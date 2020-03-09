@@ -16,8 +16,7 @@ class App(QtWidgets.QMainWindow, window.Ui_Window):
         self.setup_connections()
         self.player.launch()
 
-        #self.ui = None
-
+        
     def setup_connections(self):
         self.ui.btn_playpause.clicked.connect(self.player.pause_resume)
         self.ui.btn_next.clicked.connect(self.player.next_track)
@@ -30,18 +29,3 @@ if __name__ == "__main__":
     app = App()
     app.show()
     qt_app.exec_() 
-    #test
-
-
-
-    """app.player.play()
-    while 1:
-        try:
-            time.sleep(0.001)
-            app.player.boucle()
-
-        except KeyboardInterrupt:
-            app.player.stop()
-            print("end")
-            break"""
-             
